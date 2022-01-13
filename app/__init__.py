@@ -25,9 +25,11 @@ def create_app():
     bcrypt.init_app(app)
 
     # register blueprints
+    from app.console import console
     from app.web.public import pub
     from app.web.admin import admin
     from app.api import api
+    app.register_blueprint(console)
     app.register_blueprint(pub)
     app.register_blueprint(admin, url_prefix='/admin')
     app.register_blueprint(api, url_prefix='/api')
