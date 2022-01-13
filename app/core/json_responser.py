@@ -3,10 +3,10 @@ class JsonResponser:
         Args:
             code (int): response code
             message (str): success or error message
-            data (dict|None): response data
+            data (list|None): response data
             errors(dict|None): errors if exists
     """
-    def __init__(self, code: int = 200, message: str = None, data: dict = None, errors: dict = None) -> None:
+    def __init__(self, code: int = 200, message: str = None, data: list = None, errors: dict = None) -> None:
         self.code = code
         self.message = message
         self.data = data
