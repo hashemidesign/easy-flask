@@ -1,4 +1,4 @@
-class JsonAlert:
+class JsonResponser:
     """ Set json response
         Args:
             code (int): response code
