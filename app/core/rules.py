@@ -15,7 +15,17 @@ class Rule:
                 if len(_rule_check) > 0:
                     _tmp[key] = _rule_check
             elif key not in data and "required" in _rules:
-                _tmp[key] = "The :attribute field is required."
+                _tmp[key] = f"The {key} field is required."
+        return _tmp
+    
+    @staticmethod
+    def custom_validate(_obj):
+        print(_obj)
+        _tmp = dict()
+        for func in _obj.custom_rules:
+            is_healthy, error_dict = getattr(_obj, func)() if callable(getattr(_obj, func)) else (True, "")
+            if not is_healthy:
+                _tmp.update(error_dict)
         return _tmp
 
     @staticmethod

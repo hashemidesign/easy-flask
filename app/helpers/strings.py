@@ -14,4 +14,4 @@ def slugify(string_var):
     slug = slug.replace("؟", "")
     slug = re.sub(r'[^\w\s-]', '', slug)
     final = re.sub(r' ', '-', slug)
-    return final
+    return final.lower()

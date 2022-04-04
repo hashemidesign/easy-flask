@@ -17,7 +17,7 @@ base_dir = os.path.abspath(os.path.dirname(__file__))
 def create_app():
     app = Flask(__name__)
     # configure the application
-    app.config.from_file('../config.toml', toml.load)
+    app.config.from_file(os.path.join(base_dir, '../config.toml'), toml.load)
     app.config['UPLOAD_PATH'] = os.path.join(base_dir, 'uploads')
     # initialize modules
     db.init_app(app)
@@ -25,10 +25,10 @@ def create_app():
     bcrypt.init_app(app)
 
     # register blueprints
-    from app.console import console
-    from app.web.public import pub
-    from app.web.admin import admin
     from app.api import api
+    from app.console import console
+    from app.web.admin import admin
+    from app.web.public import pub
     app.register_blueprint(console)
     app.register_blueprint(pub)
     app.register_blueprint(admin, url_prefix='/admin')

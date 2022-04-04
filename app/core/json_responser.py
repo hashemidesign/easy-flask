@@ -3,10 +3,10 @@ class JsonResponser:
         Args:
             code (int): response code
             message (str): success or error message
-            data (list|None): response data
-            errors(dict|None): errors if exists
+            data (list||dict): response data
+            errors(dict||None): errors if exists
     """
-    def __init__(self, code: int = 200, message: str = None, data: list = None, errors: dict = None) -> None:
+    def __init__(self, data = None, code: int = 200, message: str = None, errors: dict = None) -> None:
         self.code = code
         self.message = message
         self.data = data
@@ -16,9 +16,22 @@ class JsonResponser:
         return {
             "status": "success",
             "code": self.code,
-            "message":
-                self.message if self.message else f"Data {'saved' if self.code == 201 else 'updated'} successfully",
-            "data": self.data
+            "message": self.message if self.message else f"",
+            "data": self.data,
+            "count": len(self.data) if type(self.data) is list else None,
+        }
+    
+    def paginate(self, total_pages, per_page, next_url, prev_url):
+        return {
+            "status": "success",
+            "code": self.code,
+            "message": self.message if self.message else f"",
+            "data": self.data,
+            "total_pages": total_pages,
+            "next_url": next_url,
+            "prev_url": prev_url,
+            "per_page": per_page,
+            "count": len(self.data) if type(self.data) is list else None,
         }
 
     def error(self):
@@ -26,6 +39,5 @@ class JsonResponser:
             "status": "error",
             "code": self.code,
             "message": self.message if self.message else "Something goes wrong!",
-            "data": self.data,
             "errors": self.errors if self.errors else {"err": "Something goes wrong!"},
         }
